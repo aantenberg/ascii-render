@@ -60,7 +60,6 @@ used in light mode through constructor parameters.
 There is also a simple animation engine, that takes in a scene generator, and renders each frame
 at a desired frame rate. The following is an animated physics simulation using the animation engine:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/iHgRotL09IY?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+https://github.com/aantenberg/ascii-render/assets/89103525/2227d6a2-6aa5-417f-a50c-521ee7bce757
 
 Feel free to run this demo yourself by running `main.py`!
