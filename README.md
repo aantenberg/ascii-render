@@ -58,8 +58,12 @@ used in light mode through constructor parameters.
 
 ## Animation
 There is also a simple animation engine, that takes in a scene generator, and renders each frame
-at a desired frame rate. The following is an animated physics simulation using the animation engine:
+at a desired frame rate. The following are animations created using this engine:
 
+### Bouncing Ball
 https://github.com/aantenberg/ascii-render/assets/89103525/2227d6a2-6aa5-417f-a50c-521ee7bce757
 
-Feel free to run this demo yourself by running `main.py`!
+### Moving Light
+https://github.com/aantenberg/ascii-render/assets/89103525/87cf8f26-fb11-4229-a651-aae2ca718834
+
+Feel free to run thes demos yourself using `main.py`!
