@@ -1,7 +1,12 @@
 import math
 
 class vec3:
-  def __init__(self, x, y, z):
+  def __init__(self, x, y=None, z=None):
+    if z is None:
+      z = x
+    if y is None:
+      y = x
+    
     self.x = x
     self.y = y
     self.z = z
