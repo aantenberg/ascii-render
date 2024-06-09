@@ -5,10 +5,8 @@ from vec3 import vec3
 def empty(width: int, height: int):
     return [[None for _ in range(width)] for _ in range(height)]
 
-
 def clamp(v, low, high):
     return max(low, min(v, high))
-
 
 class light:
     def __init__(self, pos: vec3, intensity: float, visible_point: bool = False):
@@ -18,7 +16,6 @@ class light:
 
     def __repr__(self):
         return f'{self.pos=}, {self.intensity=}'
-
 
 class scene:
     def clear_objs(self):
@@ -32,15 +29,15 @@ class scene:
     def empty(width: int, height: int):
         return scene(width, height)
 
-    def __init__(self, width: int, height: int, darkmode=True):
+    def __init__(self, width: int, height: int, darkmode=True, char_aspect_ratio=1/2):
         self.width = width
         self.height = height
         self.darkmode = darkmode
+        self.char_aspect_ratio = char_aspect_ratio
         self.clear_objs()
         self.clear_light()
 
     # TODO: Add vec2 to use here?
-
     def add_sphere(self, center: vec3, radius: int):
         cx, cy = center.x, center.y
         top_left_x, top_left_y = max(cx - radius, 0), max(cy - radius, 0)
@@ -88,9 +85,10 @@ class scene:
         return lightnesses[idx]
 
     def render(self):
+        inverse_char_ar = 1 / self.char_aspect_ratio
         print(
             "\n".join(
-                [" ".join(
+                [(" " * int(inverse_char_ar - 1)).join(
                     [self.__text_at_point(x, y) for x in range(self.width)])
                 for y in range(self.height)]
             )
