@@ -1,7 +1,7 @@
 import math
 
 class vec3:
-  def __init__(self, x, y=None, z=None):
+  def __init__(self, x: float, y: float = None, z: float = None):
     if z is None:
       z = x
     if y is None:
@@ -26,10 +26,10 @@ class vec3:
   def __sub__(self, other):
     return self + (other * -1)
   
-  def __truediv__(self, num):
+  def __truediv__(self, num : float):
     return vec3(self.x / num, self.y / num, self.z / num)
   
-  def __mul__(self, num):
+  def __mul__(self, num: float):
     return vec3(self.x * num, self.y * num, self.z * num)
   
   def __iadd__(self, other):

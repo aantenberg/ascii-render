@@ -1,15 +1,14 @@
 import math
 from vec3 import vec3
 
-def empty(width, height):
+def empty(width: int, height: int):
   return [[None for _ in range(width)] for _ in range(height)]
-
 
 def clamp(v, low, high):
   return max(low, min(v, high))
 
 class light:
-  def __init__(self, pos, intensity, visible_point=True):
+  def __init__(self, pos: vec3, intensity: float, visible_point: bool = True):
     self.pos = pos
     self.intensity = intensity
     self.visible_point = visible_point
@@ -30,18 +29,20 @@ class scene:
   def empty(width: int, height: int):
     return scene(width, height)
   
-  def __init__(self, width, height):
+  def __init__(self, width: int, height: int):
     self.width = width
     self.height = height
     self.clear_objs()
     self.clear_light()
+
   
-  def add_sphere(self, center, radius):
+  # TODO: Add vec2 to use here?
+  def add_sphere(self, center: vec3, radius: int):
     cx, cy  = center.x, center.y
-    top_left_x, top_left_y = cx - radius, cy - radius
-    bottom_right_x, bottom_right_y = cx + radius, cy + radius
-    for x in range(max(int(top_left_x), 0), min(int(bottom_right_x) + 1, self.width)):
-      for y in range(max(int(top_left_y), 0), min(int(bottom_right_y) + 1, self.height)):
+    top_left_x, top_left_y = max(cx - radius, 0), max(cy - radius, 0)
+    bottom_right_x, bottom_right_y = min(cx + radius + 1, self.width), min(cy + radius + 1, self.height)
+    for x in range(top_left_x, bottom_right_x):
+      for y in range(top_left_y, bottom_right_y):
         pixel_center_x, pixel_center_y = x + 0.5, y + 0.5
         sqr_dist = (pixel_center_x - cx) ** 2 + (pixel_center_y - cy) ** 2
         if (sqr_dist < radius ** 2):
@@ -49,16 +50,17 @@ class scene:
           self.zs[y][x] = z
           self.normals[y][x] = vec3(pixel_center_x - cx, pixel_center_y - cy, z).normalized()
 
-  def set_light_info(self, pos, intensity):
+
+  def set_light_info(self, pos: vec3, intensity: float):
     self.light = light(pos, intensity)
 
-  def add_light(self, light):
+  def add_light(self, light: light):
     self.light = light
 
-  def set_light_pos(self, p):
+  def set_light_pos(self, p: vec3):
     self.light.pos = p
 
-  def set_light_intensity(self, i):
+  def set_light_intensity(self, i: float):
     self.light.intensity = i
 
   def render(self):
