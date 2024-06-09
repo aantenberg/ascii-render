@@ -29,9 +29,10 @@ class scene:
   def empty(width: int, height: int):
     return scene(width, height)
   
-  def __init__(self, width: int, height: int):
+  def __init__(self, width: int, height: int, darkmode=True):
     self.width = width
     self.height = height
+    self.darkmode = darkmode
     self.clear_objs()
     self.clear_light()
 
@@ -41,8 +42,8 @@ class scene:
     cx, cy  = center.x, center.y
     top_left_x, top_left_y = max(cx - radius, 0), max(cy - radius, 0)
     bottom_right_x, bottom_right_y = min(cx + radius + 1, self.width), min(cy + radius + 1, self.height)
-    for x in range(top_left_x, bottom_right_x):
-      for y in range(top_left_y, bottom_right_y):
+    for x in range(int(top_left_x), int(bottom_right_x)):
+      for y in range(int(top_left_y), int(bottom_right_y)):
         pixel_center_x, pixel_center_y = x + 0.5, y + 0.5
         sqr_dist = (pixel_center_x - cx) ** 2 + (pixel_center_y - cy) ** 2
         if (sqr_dist < radius ** 2):
@@ -64,7 +65,7 @@ class scene:
     self.light.intensity = i
 
   def render(self):
-    lightnesses = '.,-:;<!*0@'
+    lightnesses = '.,-:;<!*0@'[::-1 if not self.darkmode else 1]
     for y in range(len(self.zs)):
       for x in range(len(self.zs[y])):
         if self.light.visible_point and self.light.pos.x == x and self.light.pos.y == y:
