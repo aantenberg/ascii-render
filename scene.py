@@ -54,7 +54,7 @@ class scene:
                     self.normals[y][x] = vec3(
                         pixel_center_x - cx, pixel_center_y - cy, z).normalized()
 
-    def set_light_info(self, pos: vec3, intensity: float, visible_point: bool):
+    def set_light_info(self, pos: vec3 = vec3(0), intensity: float = 0, visible_point: bool = False):
         self.light = light(pos, intensity, visible_point)
 
     def add_light(self, light: light):

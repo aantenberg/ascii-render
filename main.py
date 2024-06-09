@@ -1,8 +1,9 @@
+import math
 from animation import animation
 from scene import scene
 from vec3 import vec3
 
-def scene_generator(fps):
+def physics_scene_generator(fps):
   WIDTH = 64
   HEIGHT = 64
   epsilon = 3
@@ -50,7 +51,29 @@ def scene_generator(fps):
         sphere_velocity.x = 0
 
 
+def moving_light_scene_generator():
+  num_frames = 24 * 5
+  s = scene(64, 64)
+  s.add_sphere(vec3(32, 32, 0), 10)
+  s.set_light_info(vec3(0, 32, 0), 1.5)
+
+
+  theta = 0
+  angle_per_frame = math.pi / num_frames
+  x = 0
+  y = 0
+  z = 12
+  for _ in range(num_frames):
+    yield s
+    theta += angle_per_frame
+    x += 64 / num_frames
+    y += 16 / num_frames
+    s.set_light_pos(vec3(x, y, z))
+
+
 if __name__ == '__main__':
   fps = 24
-  anim = animation(scene_generator(fps), fps)
+  # generator = physics_scene_generator(fps)
+  generator = moving_light_scene_generator()
+  anim = animation(generator, fps)
   anim.play()
